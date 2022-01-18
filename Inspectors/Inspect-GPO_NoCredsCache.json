@@ -1,0 +1,13 @@
+{
+	"FindingName": "No Group Policy Objects to Prevent Credential Caching on to Workstations or Servers Found",
+	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to remove the ability to perform unsafe actions, such as caching credentials on workstations and servers. These actions increase the risk and likelihood of credential theft and compromise.",
+	"Remediation": "Discuss risk vs reward with stakeholders of creation of a Group Policy Object to prevent Credential Caching on to Workstations or Servers. Preventing Credential Caching removes an attackers ability to dump credentials from the machine, but comes at a cost to operational practices if a machine goes off network or falls off the domain. ",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+            "Url": "https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-access-do-not-allow-storage-of-passwords-and-credentials-for-network-authentication",
+            "Text": "Network access: Do not allow storage of passwords and credentials for network authentication"
+        }
+	]
+}

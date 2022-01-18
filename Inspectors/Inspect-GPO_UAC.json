@@ -1,0 +1,17 @@
+{
+	"FindingName": "No Group Policy Objects Enforcing UAC Prompt for Elevation Found",
+	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to enforce security measures, like the User Account Control (UAC) prompt to grant elevated permissions. Enforcing the use of the UAC prompt hinders an attackers ability to silently or programmatically elevate a standard users privileges to administrative permissions.",
+	"Remediation": "Create a Group Policy Object to enforce UAC prompts for all users. ",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+        {
+            "Url": "https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/user-account-control-behavior-of-the-elevation-prompt-for-administrators-in-admin-approval-mode",
+            "Text": "User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode"
+        },
+		{
+            "Url": "https://docs.microsoft.com/en-us/windows/security/identity-protection/user-account-control/user-account-control-group-policy-and-registry-key-settings",
+            "Text": "User Account Control Group Policy and registry key settings"
+        }
+	]
+}
