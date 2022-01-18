@@ -1,0 +1,21 @@
+{
+	"FindingName": "List \"Hidden\" Domain Controllers",
+	"Description": "Attackers can edit the UserAccountControl attribute of a compromised or new machine account to imitate a Domain Controller. The use of the Get-ADDomainController command in PowerShell will not list these computer accounts, essentially creating a hidden domain controller.",
+	"Remediation": "As this attack requires compromised privileged credentials, remediation is two-fold. First, remove any unknown, unauthorized servers from the environment, reset the UserAccessControl value to an appropriate value, and then force password changes on all accounts with Domain Admin or higher rights.",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+			"Url": "https://twitter.com/kaidja/status/1480212323818217479",
+			"Text": "@kaidja Twitter Status"
+		},
+        {
+            "Url": "https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/useraccountcontrol-manipulate-account-properties",
+            "Text": "Use the UserAccountControl flags to manipulate user account properties"
+        },
+		{
+			"Url":"https://stealthbits.com/blog/server-untrust-account/",
+			"Text":"Active Directory persistence through userAccountControl manipulation"
+		}
+	]
+}

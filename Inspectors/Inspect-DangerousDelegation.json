@@ -1,0 +1,13 @@
+{
+	"FindingName": "Active Directory Object with Dangerous Permissions Found",
+	"Description": "Potentially dangerous access rights were discovered delegated to the identified objects. These rights may be abused to modify objects, policies, accounts, or machines within the Active Directory environment.",
+	"Remediation": "Review these delegations and remove as necessary.",
+	"AffectedObjects": "",
+	"Risk": "High",
+	"References": [
+		{
+			"Url":"https://stealthbits.com/blog/delegated-permissions-in-active-directory/",
+			"Text":"Understanding Delegated Permissions in Active Directory"
+		}
+	]
+}

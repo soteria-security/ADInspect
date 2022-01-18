@@ -1,0 +1,17 @@
+{
+	"FindingName": "Domain Schema Version Lower than 2016 Found",
+	"Description": "Domain Schema Levels introduce attributes to the forest and domain required for newer server OS versions. If the Schema is not updated, newer server OS features are not functional.",
+	"Remediation": "Update the Schema to the highest available Schema options.",
+	"AffectedObjects": "",
+	"Risk": "Medium",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/schema-updates",
+			"Text": "Windows Server Active Directory schema updates"
+		},
+        {
+            "Url":"https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/find-current-schema-version",
+            "Text":"How to find the current Schema Version"
+        }
+	]
+}

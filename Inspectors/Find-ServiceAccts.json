@@ -1,0 +1,13 @@
+{
+	"FindingName": "Possible User-based Service Accounts found",
+	"Description": "Accounts in an Active Directory environment running services broadcast a Service Principal Name (SPN) across the environment. These SPN's can be used to help identify and differentiate service accounts from user accounts. NOTE: This does not take into consideration habits of admins running services under their own credentials.",
+	"Remediation": "Identiifed accounts should be reviewed to ensure that they are still valid accounts. Services running with administrator accounts should be reconfigured to use a Service Account. When possible, these services and associated accounts should be reconfigured to use Managed Service Accounts. Leveraging Managed Service Accounts can reduce the likelihood of attack and reduces management overhead. These accounts passwords are cryptographically generated at 128 characters and are automatically changed and managed by Active Directory. In this instance captured SPN's expire well before the hash can be cracked.",
+	"AffectedObjects": "",
+	"Risk": "High",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview",
+			"Text": "Group Managed Service Accounts Overview"
+		}
+	]
+}

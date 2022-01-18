@@ -1,0 +1,21 @@
+{
+	"FindingName": "Scheduled Tasks found on Domain Controllers",
+	"Description": "Scheduled tasks have been known to be exploited to allow attackers to elevate privileges, gain persistence, and download and deploy malware. This finding indicates that scheduled tasks were found on the Domain Controllers within the domain queried.",
+	"Remediation": "Review sheduled tasks listed in the accompanying file(s) for legitimacy and validate that they are needed. Remove any unneeded, unnecessary tasks.",
+	"AffectedObjects": "",
+	"Risk": "Informational",
+	"References": [
+		{
+			"Url": "https://www.zerodayinitiative.com/blog/2019/6/11/exploiting-the-windows-task-scheduler-through-cve-2019-1069",
+			"Text": "EXPLOITING THE WINDOWS TASK SCHEDULER THROUGH CVE-2019-1069"
+		},
+        {
+            "Url": "https://logrhythm.com/blog/living-off-the-land-attacks-with-scheduled-task/",
+            "Text": "Living Off the Land Attacks with Scheduled Task"
+        },
+		{
+			"Url":"https://attack.mitre.org/techniques/T1053/005/",
+			"Text":"Scheduled Task/Job: Scheduled Task"
+		}
+	]
+}

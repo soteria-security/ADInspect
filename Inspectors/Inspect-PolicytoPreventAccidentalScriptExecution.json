@@ -1,0 +1,17 @@
+{
+	"FindingName": "No Group Policy Objects to Mitigate Accidental Script Execution",
+	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to replace the default file associations with a program of your choice. Replacing the default file association of JavaScript (.js) file extensions to a program like notepad will mitigate the risk associated with automated or inadvertant file execution. The following extensions are evaluated: js, jse, cjs, mjs, iced, liticed, iced.md, cs, coffee, litcoffee, coffee.md, ts, tsx, ls, es6, es, jsx, sjs, eg",
+	"Remediation": "Create a Group Policy Object to replace the default file association for JavaScript file extensions.",
+	"AffectedObjects": "",
+	"Risk": "High",
+	"References": [
+		{
+			"Url": "https://www.microsoft.com/security/blog/2021/11/11/html-smuggling-surges-highly-evasive-loader-technique-increasingly-used-in-banking-malware-targeted-attacks/",
+			"Text": "HTML smuggling surges: Highly evasive loader technique increasingly used in banking malware, targeted attacks - Microsoft Security Blog"
+		},
+        {
+            "Url": "https://theitbros.com/set-default-file-associations-via-group-policy/",
+            "Text": "Setting Default File Associations using Group Policy"
+        }
+	]
+}

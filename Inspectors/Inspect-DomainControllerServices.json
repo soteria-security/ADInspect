@@ -1,0 +1,17 @@
+{
+	"FindingName": "Services Installed on Domain Controllers",
+	"Description": "A list of services installed on Domain Controllers. Best Practice dictates that nothing should be installed on a Domain Controller that is not necessary for it to function. These should be audited and reviewed regularly.",
+	"Remediation": "Remove or disable any services that are not needed for Domain Controller functionality.",
+	"AffectedObjects": "",
+	"Risk": "High",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/securing-domain-controllers-against-attack",
+			"Text": "Securing Domain Controllers Against Attack"
+		},
+		{
+			"Url":"https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/best-practices-for-securing-active-directory",
+			"Text":"Securing Domain Controllers Against Attack"
+		}
+	]
+}

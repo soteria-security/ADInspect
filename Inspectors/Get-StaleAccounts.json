@@ -1,0 +1,13 @@
+{
+	"FindingName": "Stale Accounts Detected",
+	"Description": "Stale accounts are accounts that are enabled and have not logged in for at least 120 days. These accounts can be leveraged by an attacker to gain information about the domain and escalate privileges.",
+	"Remediation": "Evaluate the accounts and determine if the accounts are indeed needed - User-based Service Accounts may be identified by this script. If the accounts are no longer needed, they should be disabled and deleted in accordance with your organizations policies.",
+	"AffectedObjects": "",
+	"Risk": "High",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/services-hub/health/remediation-steps-ad/regularly-check-for-and-remove-inactive-user-accounts-in-active-directory#:~:text=Stale%20user%20accounts%20in%20Active,also%20consume%20reclaimable%20database%20space.",
+			"Text": "Regularly check for and remove inactive user accounts in Active Directory"
+		}
+	]
+}

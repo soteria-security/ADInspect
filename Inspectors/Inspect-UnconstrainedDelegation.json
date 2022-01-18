@@ -1,0 +1,21 @@
+{
+	"FindingName": "Computers with Unconstrained Delegation Found",
+	"Description": "Unconstrained Delegation allows systems to impersonate any service(s) using any user or system account to perform a given task. Attackers can compromise any system with this permission set and abuse the delegation to impersonate privileged users and systems, leading to a domain takeover.",
+	"Remediation": "This can be remediated by setting delegation on the machine account for specified services only. This can be taken a step further by enforcing Resource-based constrained delegation. Discussions should be had with any stakeholders to ensure that legacy systems and services required for business operation are not adversely affected.",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/defender-for-identity/cas-isp-unconstrained-kerberos",
+			"Text": "Security assessment: Unsecure Kerberos delegation"
+		},
+        {
+            "Url": "https://adsecurity.org/?p=1667",
+            "Text": "Active Directory Security Risk #101: Kerberos Unconstrained Delegation (or How Compromise of a Single Server Can Compromise the Domain)"
+        },
+        {
+            "Url": "https://docs.microsoft.com/en-us/azure/active-directory-domain-services/deploy-kcd",
+            "Text": "Configure Kerberos constrained delegation (KCD) in Azure Active Directory Domain Services"
+        }
+	]
+}

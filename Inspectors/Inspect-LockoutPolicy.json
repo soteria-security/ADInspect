@@ -1,0 +1,17 @@
+{
+	"FindingName": "Domain Lockoout Policy",
+	"Description": "Currently configured Domain Lockout Policy.",
+	"Remediation": "Review the current configuration and ensure that it meets corporate policy. Soteria recommends setting the LockoutThreshold to \"5\", the LockoutDuration to \"0\", and the LockoutObservationWindow to \"1 hour\". This can be configured by editing the Domain Password Policy via Group Policy or via PowerShell using the following command: Set-ADDefaultDomainPasswordPolicy -Identity domain.com -LockoutThreshold 5 -LockoutDuration 0 -LockoutObservationWindow 00:60:00 -ComplexityEnabled $True -ReversibleEncryptionEnabled $False -MaxPasswordAge 90.00:00:00 -MinPasswordAge 1.00:00:00 -MinPasswordLength 16 -PasswordHistoryCount 24",
+	"AffectedObjects": "",
+	"Risk": "Informational",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/services-hub/health/remediation-steps-ad/set-the-account-lockout-threshold-to-the-recommended-value",
+			"Text": "Set the account lockout threshold to the recommended value"
+		},
+        {
+			"Url": "https://docs.microsoft.com/en-us/powershell/module/activedirectory/set-addefaultdomainpasswordpolicy?view=windowsserver2019-ps",
+			"Text": "Set-ADDefaultDomainPasswordPolicy"
+		}
+	]
+}

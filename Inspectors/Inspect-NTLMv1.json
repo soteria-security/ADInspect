@@ -1,0 +1,21 @@
+{
+	"FindingName": "NTLMv1 Enabled",
+	"Description": "NTLMv1 is a legacy authentication protocol with weak encryption that allows attackers to easily retrieve credentials from the network and perform NTLM Relay attacks.",
+	"Remediation": "Create a Group Policy Object to disable NTLMv1 protocols. Additionally, diabling these protocols in a \"Golden Image\" is recommeded.",
+	"AffectedObjects": "",
+	"Risk": "High",
+	"References": [
+		{
+			"Url": "https://support.microsoft.com/en-us/topic/security-guidance-for-ntlmv1-and-lm-network-authentication-da2168b6-4a31-0088-fb03-f081acde6e73",
+			"Text": "Security guidance for NTLMv1 and LM network authentication"
+		},
+        {
+            "Url": "https://docs.microsoft.com/en-us/troubleshoot/windows-server/windows-security/audit-domain-controller-ntlmv1",
+            "Text": "Audit use of NTLMv1 on a Windows Server-based domain controller"
+        },
+        {
+            "Url": "http://woshub.com/disable-ntlm-authentication-windows/",
+            "Text": "How to Disable NTLM Authentication in Windows Domain?"
+        }
+	]
+}

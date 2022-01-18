@@ -1,0 +1,17 @@
+{
+	"FindingName": "No Group Policy Objects to Prevent Domain Admins from logging on to Workstations or Servers Found",
+	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to remove the ability to perform unsafe actions, like logging into a workstation as a Domain Admin. These actions increase the risk and likelihood of credential theft and compromise.",
+	"Remediation": "Create a Group Policy Object to prevent Domain Admins from logging on to Workstations or Servers.",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/best-practices-for-securing-active-directory",
+			"Text": "Best Practices for Securing Active Directory"
+		},
+        {
+            "Url": "https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-f--securing-domain-admins-groups-in-active-directory",
+            "Text": "Appendix F: Securing Domain Admins Groups in Active Directory"
+        }
+	]
+}

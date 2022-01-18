@@ -1,0 +1,13 @@
+{
+	"FindingName": "Domain Trusts Found",
+	"Description": "Domain Trusts were found. As Domain Trusts are often necessary, these trusts should be reviewed regularly.",
+	"Remediation": "Remove any Trusts that are no longer needed.",
+	"AffectedObjects": "",
+	"Risk": "Medium",
+	"References": [
+		{
+			"Url": "https://www.qomplx.com/qomplx-knowledge-fundamentals-of-active-directory-trust-relationships/",
+			"Text": "Fundamentals of Active Directory Trust Relationships"
+		}
+	]
+}

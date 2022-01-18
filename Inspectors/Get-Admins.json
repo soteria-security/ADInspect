@@ -1,0 +1,17 @@
+{
+	"FindingName": "Exported List of all Accounts with the adminCount flag set",
+	"Description": "Active Directory accounts with the adminCount flag with a value greater than 0 can be abused by an attacker to elevate privileges. If an account has ever had administrative rights, this flag remains set even after those permissions are removed.",
+	"Remediation": "Validate the list of users that are expected to have admin rights. For any other accounts, including disabled accounts, running the following PowerShell command in a foreach loop against a list of accounts will resolve the finding: set-aduser -replace @{admincount=0}. For example, the following command will reset the adminCount attribute on all disabled accounts: Get-ADUser -filter {(admincount -like '1') -and (enabled -eq $false)} | set-aduser -replace @{admincount=0}",
+	"AffectedObjects": "",
+	"Risk": "High",
+	"References": [
+		{
+			"Url": "https://www.reddefenseglobal.com/blog/microsoft-domain-attack-techniques/admincount/",
+			"Text": "ADMINCOUNT = 1 | From Regular User To Domain Administrator WITH PERSISTENCE In 5 Minutes"
+		},
+		{
+			"Url": "https://stealthbits.com/blog/fun-with-active-directorys-admincount-attribute/",
+			"Text": "FUN WITH ACTIVE DIRECTORY’S ADMINCOUNT ATTRIBUTE"
+		}
+	]
+}

@@ -1,0 +1,17 @@
+{
+	"FindingName": "High Value Targets",
+	"Description": "Members of Adminstrative groups have elevated privileges in an Active Directory environment. Compromise of these accounts allows attackers to control various aspects of the domain, up to and including, a complete domain takeover.",
+	"Remediation": "Review members of these Administrative groups and ensure that they do require these rights. Proper delegation of rights to non-default Security Groups offers greater security for the domain. Consider using a Privilged Access Management (PAM) tool, and Just in Time (JIT) Administration utilities.",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/delegating-administration-by-using-ou-objects",
+			"Text": "Delegating Administration by Using OU Objects | Microsoft Docs"
+		},
+		{
+			"Url":"https://stealthbits.com/blog/delegated-permissions-in-active-directory/",
+			"Text":"Understanding Delegated Permissions in Active Directory"
+		}
+	]
+}

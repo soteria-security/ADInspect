@@ -1,0 +1,17 @@
+{
+	"FindingName": "Accounts with Ability to Use DES Encryption Found",
+	"Description": "Accounts were found that have can authenticate using the insecure DES ciphers. This leaves the account vunlerable to trivial password recovery.",
+	"Remediation": "This can be remediated by removing the 'Use Kerberos DES encryption types for this account' setting from the identified users accounts. Discussions should be had with any stakeholders to ensure that legacy systems and services required for business operation are not adversely affected.",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/services-hub/health/remediation-steps-ad/remove-the-highly-insecure-des-encryption-from-user-accounts",
+			"Text": "Remove the highly insecure DES encryption from User accounts"
+		},
+        {
+            "Url": "https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-security-configure-encryption-types-allowed-for-kerberos",
+            "Text": "Network security: Configure encryption types allowed for Kerberos"
+        }
+	]
+}

@@ -1,0 +1,21 @@
+{
+	"FindingName": "List of all Domain Controllers",
+	"Description": "Maintiaining a list of Active Directory Domain Controllers for validation. Ensuring the list matches expected Domain Controllers can help detect rogue DC's used in an attack known as DCShadow.",
+	"Remediation": "As this attack requires compromised privileged credentials, remediation is two-fold. First, remove any unknown, unauthorized servers from the environment and then force password changes on all accounts with Domain Admin or higher rights.",
+	"AffectedObjects": "",
+	"Risk": "Informational",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/securing-domain-controllers-against-attack",
+			"Text": "Securing Domain Controllers Against Attack"
+		},
+        {
+            "Url": "https://www.qomplx.com/kerberos_dcsync_attacks_explained/",
+            "Text": "QOMPLX Knowledge: DCSync Attacks Explained"
+        },
+		{
+			"Url":"https://stealthbits.com/blog/what-is-a-dcshadow-attack-and-how-to-defend-against-it/",
+			"Text":"WHAT IS A DCSHADOW ATTACK AND HOW TO DEFEND AGAINST IT"
+		}
+	]
+}

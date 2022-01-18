@@ -1,0 +1,21 @@
+{
+	"FindingName": "Accounts with Service Principal Names found",
+	"Description": "Accounts in an Active Directory environment running services broadcast a Service Principal Name (SPN) across the environment. These broadcasts include the hashed credentials of the account configured to run the service on the domain. Due to poor credential hygeine and bad practices, many times these accounts are running with shared passwords, passwords that never expire, or administrators configure these services using their own accounts. These practices leave those accounts vulnerable to an attack known as kerberoasting. Additionally, these Service Principal Names continue to exist on the domain after the accounts, services, and systems they were running on have been disabled or deleted.",
+	"Remediation": "Identiifed accounts should be reviewed to ensure that they are still valid accounts. Services running with administrator accounts should be reconfigured to use a Service Account. When possible, these services and associated accounts should be reconfigured to use Managed Service Accounts. Leveraging Managed Service Accounts can reduce the likelihood of this attack. These accounts passwords are cryptographically generated at 128 characters and are automatically changed and managed by Active Directory. In this instance captured SPN's expire well before the hash can be cracked.",
+	"AffectedObjects": "",
+	"Risk": "Medium",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows-server/security/group-managed-service-accounts/group-managed-service-accounts-overview",
+			"Text": "Group Managed Service Accounts Overview"
+		},
+		{
+			"Url": "https://www.blackhillsinfosec.com/a-toast-to-kerberoast/",
+			"Text": "A Toast to Kerberoast"
+		},
+		{
+			"Url": "https://adsecurity.org/?p=3466",
+			"Text": "Dropping SPNs on Admin Accounts for Later Kerberoasting"
+		}
+	]
+}

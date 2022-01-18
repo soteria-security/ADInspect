@@ -1,0 +1,25 @@
+{
+	"FindingName": "Group Policy Objects Found",
+	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's often contain configurations that enforce security features or disable unwanted functionality on endpoints. Due to the function of a Group Policy Object, they make attractive targets for attackers to abuse or bypass and should be reviewed regularly.",
+	"Remediation": "Review, validate, and remove any Group Policy Objects that are no longer needed.",
+	"AffectedObjects": "",
+	"Risk": "Informational",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/previous-versions/windows/desktop/gpmc/group-policy-management-console-portal",
+			"Text": "Group Policy Management Console"
+		},
+        {
+			"Url": "https://wald0.com/?p=179",
+			"Text": "A Red Teamer’s Guide to GPOs and OUs"
+		},
+        {
+            "Url":"https://www.quest.com/community/blogs/b/microsoft-platform-management/posts/group-policy-and-gpos_2d00_-how-hackers-attack-your-active-directory-",
+            "Text":"How Hackers Exploit Group Policy Objects (GPOs) to Attack Your Active Directory"
+        },
+        {
+            "Url":"https://www.trustedsec.com/blog/weaponizing-group-policy-objects-access/",
+            "Text":"WEAPONIZING GROUP POLICY OBJECTS ACCESS"
+        }
+	]
+}

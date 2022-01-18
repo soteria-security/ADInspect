@@ -1,0 +1,17 @@
+{
+	"FindingName": "No Group Policy Objects Defining Log Size and Retention",
+	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to define log file size and retention. ",
+	"Remediation": "Create a Group Policy Object to enforce the configuration of logging on servers and endpoints. At a minimum loggin should be enabled and enforced on mission critical systems.",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/troubleshoot/windows-server/group-policy/set-event-log-security-locally-or-via-group-policy",
+			"Text": "Set event log security locally or via Group Policy - Microsoft Docs"
+		},
+        {
+            "Url": "https://www.manageengine.com/products/active-directory-audit/help/getting-started/event-log-size-retention-settings.html",
+            "Text": "Configuring Security Event Log Size and Retention Settings"
+        }
+	]
+}

@@ -1,0 +1,17 @@
+{
+	"FindingName": "Delegated Rights and Objects Found",
+	"Description": "Adminstrative rights were discovered delegated to the identified items.",
+	"Remediation": "Review these delegations and remove as necessary.",
+	"AffectedObjects": "",
+	"Risk": "Medium",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/delegating-administration-by-using-ou-objects",
+			"Text": "Delegating Administration by Using OU Objects | Microsoft Docs"
+		},
+		{
+			"Url":"https://stealthbits.com/blog/delegated-permissions-in-active-directory/",
+			"Text":"Understanding Delegated Permissions in Active Directory"
+		}
+	]
+}

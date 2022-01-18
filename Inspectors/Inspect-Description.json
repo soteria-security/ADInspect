@@ -1,0 +1,13 @@
+{
+	"FindingName": "Potentially Sensitive Information Found in User Description Field",
+	"Description": "Users and admins sometimes store sensitive information in the Description field of an Active Directory account. This is bad practice as any member of Authenticated Users and Domain Users in an Active Directory domain has access to query AD attributes of any object. Attackers take advantage of this and abuse the information stored in this attribute.",
+	"Remediation": "Review the list of returned users and remove sensitive information contained within the description attribute. If the information types found are required for necessary business practices, first consult with stakeholders and members of leadership or legal teams, and consider using Confidential Attributes.",
+	"AffectedObjects": "",
+	"Risk": "High",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/troubleshoot/windows-server/windows-security/mark-attribute-as-confidential",
+			"Text": "Mark an attribute as confidential in Windows Server 2003 Service Pack 1"
+		}
+	]
+}
