@@ -28,6 +28,18 @@ Execution of AD*Inspect* looks like this:
   PS> .\ADInspect.ps1 -Username admin -OutPath "C:\Reports"
 ```
 
+AD*Inspect* can be run with only specified Inspector modules, or conversely, by excluding specified modules.
+
+For example:
+
+```powershell
+  PS> .\ADInspect.ps1 -OutPath "C:\Reports" -SelectedInspectors inspector1, inspector2
+```
+or
+
+```powershell
+  PS> .\ADInspect.ps1 -OutPath "C:\Reports" -ExcludedInspectors inspector1, inspector2, inspector3
+```
 
 # Developing Inspector Modules
 AD*Inspect* is designed to be easy to expand, with the hope that it enables individuals and organizations to either utilize their own AD*Inspect* modules internally, or publish those modules for the O365 community.
