@@ -1,7 +1,7 @@
 # AD*Inspect*
 
 # Purpose
-Following in the footsteps of Soteria's 365Inspect tool, AD-Inspect aims to further the state of Active Directory security by authoring a PowerShell script that automates the security assessment of Microsoft Active Directory environments.
+Following in the footsteps of Soteria's 365Inspect tool, AD*Inspect* aims to further the state of Active Directory security by authoring a PowerShell script that automates the security assessment of Microsoft Active Directory environments.
 
 
 # Setup
