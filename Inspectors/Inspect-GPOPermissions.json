@@ -1,0 +1,7 @@
+{
+	"FindingName": "Group Policy Objects with Improper Permissions Found",
+	"Description": "Groups Policy Objects found with `'Write`' or `'Modify`' permissions granted to Authenticated Users or Everyone groups.",
+	"Remediation": "Review the identified Group Policy Object permissions.",
+	"AffectedObjects": "",
+	"Risk": "Critical"
+}

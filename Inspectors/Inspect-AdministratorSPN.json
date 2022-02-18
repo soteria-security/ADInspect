@@ -1,0 +1,7 @@
+{
+	"FindingName": "Administrator Account ServicePrincipalNames Found",
+	"Description": "Built-in Administrator Account is associated with active Service Principal Names. This makes the Administrator account vulnerable to Kerberoasting.",
+	"Remediation": "Remove and reassign the Service Principal Names to a Service Account.",
+	"AffectedObjects": "",
+	"Risk": "Critical"
+}
