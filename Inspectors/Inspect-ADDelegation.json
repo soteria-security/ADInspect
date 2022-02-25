@@ -1,6 +1,6 @@
 {
 	"FindingName": "Delegated Rights and Objects Found",
-	"Description": "Adminstrative rights were discovered delegated to the identified items.",
+	"Description": "Administrative rights were discovered delegated to the identified items.",
 	"Remediation": "Review these delegations and remove as necessary.",
 	"AffectedObjects": "",
 	"Risk": "Medium",

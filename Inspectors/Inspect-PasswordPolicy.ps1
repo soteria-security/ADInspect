@@ -37,7 +37,7 @@ Function Inspect-PasswordPolicy {
 
     $data | Out-File "$($path)\Domain_Password_Policies.txt"
 
-    Return $flag
+    Return "$flag - Please refer to Domain_Password_Policies.txt output file"
 }
 
 Return Inspect-PasswordPolicy

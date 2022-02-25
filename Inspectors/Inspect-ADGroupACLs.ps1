@@ -5,7 +5,7 @@ function Inspect-ADGroupACLs{
     $results = @()
 
     foreach($group in $groups){
-        $result = (Get-ACL "AD:$((get-adgroup $group).distinguishedname)").access | Select-Object identityreference,  accesscontroltype, activedirectoryrights
+        $result = (Get-ACL -Path "Microsoft.ActiveDirectory.Management.dll\ActiveDirectory:://RootDSE/$((get-adgroup $group).distinguishedname)").access | Select-Object identityreference,  accesscontroltype, activedirectoryrights
         $results += $result
     }
 

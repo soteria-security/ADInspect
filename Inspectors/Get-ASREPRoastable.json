@@ -1,6 +1,6 @@
 {
 	"FindingName": "Accounts Vulnerable to AS-REP Roasting Found",
-	"Description": "Acounts configured in Active Directory to not require Kerberos Pre-Authentication are vulnerable to an attack known as AS-REP Roasting. By default, Kerberos Pre-Authentication is required on all accounts. This attack relies on the (mis)configuration of an account and leverages that configuration to harvest credential hashes and potentially elevate priviliges.",
+	"Description": "Accounts configured in Active Directory to not require Kerberos Pre-Authentication are vulnerable to an attack known as AS-REP Roasting. By default, Kerberos Pre-Authentication is required on all accounts. This attack relies on the (mis)configuration of an account and leverages that configuration to harvest credential hashes and potentially elevate privileges.",
 	"Remediation": "After validating that there is not a need for this configuration (possibly legacy unix accounts), accounts can be reconfigured to require pre-authentication by running the following PowerShell commands: Get-ADuser -filter {(DoesNotRequirePreAuth -eq $true) -and ($_.Enabled -eq $true)} | Set-ADUser -DoesNotRequirePreAuth $false",
 	"AffectedObjects": "",
 	"Risk": "Critical",

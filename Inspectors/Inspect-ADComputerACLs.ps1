@@ -5,7 +5,7 @@ function Inspect-ADComputerACLs{
     $results = @()
 
     foreach($computer in $computers){
-        $result = (Get-ACL "AD:$((get-adcomputer $computer).distinguishedname)").access | Select-Object identityreference,  accesscontroltype, activedirectoryrights
+        $result = (Get-ACL -Path "Microsoft.ActiveDirectory.Management.dll\ActiveDirectory:://RootDSE/$((get-adcomputer $computer).distinguishedname)").access | Select-Object identityreference,  accesscontroltype, activedirectoryrights
         $results += $result
     }
 

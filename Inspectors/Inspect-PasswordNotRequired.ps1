@@ -18,7 +18,7 @@ Function Inspect-PasswordNotRequired{
     
     if ($pwdNotrequired.count -gt 0){
         Return $pwdNotrequired.count 
-        $pwdNotrequired | Export-Csv "PWDNotRequired.csv" -NoTypeInformation
+        $pwdNotrequired | Export-Csv "$path\PWDNotRequired.csv" -NoTypeInformation
     }
 }
 

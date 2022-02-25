@@ -27,7 +27,7 @@ Function Inspect-PasswordNeverChanged{
     }
     
     if ($pwdNeverchanged.count -ne 0){
-        $pwdNeverchanged | Export-Csv "PWDNeverChanged.csv" -NoTypeInformation
+        $pwdNeverchanged | Export-Csv "$path\PWDNeverChanged.csv" -NoTypeInformation
         Return $pwdNeverchanged.count
     }
 }

@@ -17,8 +17,8 @@ Function Inspect-PasswordExpiry{
     $pwdNeverexpires = Get-ADUser -filter {Enabled -eq $true} -properties Name, SAMAccountName, PasswordNeverExpires, Description, Title, Department | Where-Object { $_.passwordNeverExpires -eq "true" }
     
     if ($pwdNeverexpires.count -gt 0){
-        Return $pwdNeverexpires.count
         $pwdNeverexpires | Export-Csv "$path\PWDNeverExpires.csv" -NoTypeInformation
+        Return $pwdNeverexpires.count
     }
 }
 

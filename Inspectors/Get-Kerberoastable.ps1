@@ -12,7 +12,7 @@
 #>
 
 Function Get-Kerberoastable{
-    $SPN = get-aduser -filter * -pr ServicePrincipalNames | Where-Object {($_.ServicePrincipalNames -like "*") -and ($_.samaccountname -notlike "krbtgt")} | Select-Object ServicePrincipalNames
+    $SPN = get-aduser -filter * -pr ServicePrincipalNames | Where-Object {($_.ServicePrincipalNames -like "*") -and ($_.samaccountname -notlike "krbtgt")} | Select-Object samaccountname
     
     if ($SPN.count -ne 0){
         Return $SPN

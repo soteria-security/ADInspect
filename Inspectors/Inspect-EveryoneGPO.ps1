@@ -1,5 +1,7 @@
+$path = @($out_path)
+
 function Inspect-EveryoneGPO {
-    $ErrorActionPreference = “silentlycontinue”
+    $ErrorActionPreference = "SilentlyContinue"
 
     $GPOs = Get-GPO -All
     
@@ -36,7 +38,9 @@ function Inspect-EveryoneGPO {
         $affectedGPOs += $affectedGPO
     }
     
-    $affectedGPOs
+    $affectedGPOs | Out-File -FilePath "$path\GPOAssignmentsExcessivePermissions.txt"
+
+    return $affectedGPOs.Name
 }
 
 Return Inspect-EveryoneGPO

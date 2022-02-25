@@ -1,7 +1,7 @@
 {
 	"FindingName": "NTLMv1 Enabled",
 	"Description": "NTLMv1 is a legacy authentication protocol with weak encryption that allows attackers to easily retrieve credentials from the network and perform NTLM Relay attacks.",
-	"Remediation": "Create a Group Policy Object to disable NTLMv1 protocols. Additionally, diabling these protocols in a \"Golden Image\" is recommeded.",
+	"Remediation": "Create a Group Policy Object to disable NTLMv1 protocols. Additionally, disabling these protocols in a \"Golden Image\" is recommended.",
 	"AffectedObjects": "",
 	"Risk": "High",
 	"References": [
