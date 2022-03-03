@@ -12,10 +12,11 @@
 #>
 
 Function Get-ASREPRoastable{
-    $ASREP = get-aduser -filter * -pr DoesNotRequirePreAuth | Where-Object {($_.DoesNotRequirePreAuth -eq $true) -and ($_.Enabled -eq $true)} | Select-Object samaccountname
+    $ASREP = get-aduser -filter * -pr DoesNotRequirePreAuth | Where-Object {($_.DoesNotRequirePreAuth -eq $true) -and ($_.Enabled -eq $true)}
     
     if ($ASREP.count -ne 0){
-        Return $ASREP
+        $ASREP | Export-Csv "$path\ASREPRoastableUsers.csv" -NoTypeInformation
+        Return $ASREP.samaccountname
     }
 }
 

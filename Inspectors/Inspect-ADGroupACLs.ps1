@@ -10,6 +10,7 @@ function Inspect-ADGroupACLs{
     }
 
     $results | Export-Csv -Path "$path\SecurityGroup_ACLs.csv" -NoTypeInformation
+    return $true
 }
 
 Return Inspect-ADGroupACLs

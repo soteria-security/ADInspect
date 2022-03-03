@@ -1,19 +1,17 @@
+$path = @($out_path)
+
 Function Inspect-AllSPNs{
-    $SPNs = @()
+    $results = @()
 
-    $query = New-Object DirectoryServices.DirectorySearcher([ADSI]"")
+    $SPNs = Get-ADUser -filter {ServicePrincipalName -like "*"} -Properties ServicePrincipalName | Where-Object {$_.samaccountname -notlike "krbtgt"}
 
-    $query.Filter = "(serviceprincipalname=*)"
-
-    $results = $query.FindAll()
-
-    Foreach ($result in $results){
-        $entity = $result.GetDirectoryEntry()
-        $SPNs += $entity.Name, $entity.ServicePrinicpalName
+    Foreach ($SPN in $SPNs){
+        $results += "$($SPN.Name), $($SPN.ServicePrincipalName)"
     }
 
-    if ($SPNs.count -ne 0){
-        Return $SPNs
+    if ($results.count -ne 0){
+        $SPNs | Export-Csv "$path\AllSPNs.csv" -NoTypeInformation
+        Return $results
     }
 }
 

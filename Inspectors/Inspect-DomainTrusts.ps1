@@ -10,10 +10,11 @@
 .FUNCTIONALITY
     Gather information about Active Directory high-value target accounts
 #>
-
+$path = @($out_path)
 
 Function Inspect-Trusts{
     $Trusts = Get-ADTrust -Filter *
+    $Trusts | Out-File -FilePath "$path\DomainTrusts.txt"
     Return $Trusts
 }
 

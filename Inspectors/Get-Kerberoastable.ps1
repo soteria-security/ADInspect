@@ -11,11 +11,14 @@
     Gather information about Active Directory accounts vulnerable to Kerberoasting
 #>
 
+$path = @($out_path)
+
 Function Get-Kerberoastable{
-    $SPN = get-aduser -filter * -pr ServicePrincipalNames | Where-Object {($_.ServicePrincipalNames -like "*") -and ($_.samaccountname -notlike "krbtgt")} | Select-Object samaccountname
+    $SPN = get-aduser -filter * -pr ServicePrincipalNames | Where-Object {($_.ServicePrincipalNames -like "*") -and ($_.samaccountname -notlike "krbtgt")}
     
     if ($SPN.count -ne 0){
-        Return $SPN
+        $SPN | Export-Csv "$path\KerberoastableAccounts.csv" -NoTypeInformation
+        Return $SPN.samaccountname
     }
 }
 

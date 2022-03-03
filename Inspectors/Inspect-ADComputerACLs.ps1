@@ -10,6 +10,7 @@ function Inspect-ADComputerACLs{
     }
 
     $results | Export-Csv -Path "$path\ComputerObject_ACLs.csv" -NoTypeInformation
+    Return $true
 }
 
 Return Inspect-ADComputerACLs

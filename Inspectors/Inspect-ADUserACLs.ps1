@@ -5,11 +5,12 @@ function Inspect-ADUserACLs{
     $results = @()
 
     foreach($user in $users){
-        $result = (Get-ACL -Path "Microsoft.ActiveDirectory.Management.dll\ActiveDirectory:://RootDSE/$((get-aduser $user).distinguishedname)").access | Select-Object identityreference,  accesscontroltype, activedirectoryrights
+        $result = (Get-ACL "AD:$((get-aduser $user).distinguishedname)").access | Select-Object identityreference,  accesscontroltype, activedirectoryrights
         $results += $result
     }
 
     $results | Export-Csv -Path "$path\UserObject_ACLs.csv" -NoTypeInformation
+    return $true
 }
 
 Return Inspect-ADUserACLs
