@@ -27,4 +27,6 @@ Function Inspect-GPO_SMBv1{
     Return $null
 }
 
-Return Inspect-GPO_SMBv1
+do {
+	Write-Progress -Activity "Gathering Information" -Status "Gathering..." -PercentComplete -1
+} while (Inspect-GPO_SMBv1)

@@ -14,7 +14,12 @@
 $path = @($out_path)
 
 Function Get-Kerberoastable{
-    $SPN = get-aduser -filter * -pr ServicePrincipalNames | Where-Object {($_.ServicePrincipalNames -like "*") -and ($_.samaccountname -notlike "krbtgt")}
+    #$SPN = get-aduser -filter * -pr ServicePrincipalNames | Where-Object {($_.ServicePrincipalNames -like "*") -and ($_.samaccountname -notlike "krbtgt")}
+    $SPN = @() 
+    
+    foreach ($user in @($allUsers)) {
+        $SPN += ($user | Where-Object {($_.ServicePrincipalNames -notlike "") -and ($_.Name -notlike "krbtgt")})
+    }
     
     if ($SPN.count -ne 0){
         $SPN | Export-Csv "$path\KerberoastableAccounts.csv" -NoTypeInformation

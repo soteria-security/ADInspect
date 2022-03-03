@@ -43,4 +43,6 @@ function Inspect-EveryoneGPO {
     return $affectedGPOs.Name
 }
 
-Return Inspect-EveryoneGPO
+do {
+	Write-Progress -Activity "Gathering Information" -Status "Gathering..." -PercentComplete -1
+} while (Inspect-EveryoneGPO)

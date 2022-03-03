@@ -14,11 +14,11 @@
 
 $path = @($out_path)
 Function Inspect-PasswordNeverChanged{
-    $Users = Get-ADUser -Filter * -Properties WhenCreated, PasswordLastSet 
+    #$Users = Get-ADUser -Filter * -Properties WhenCreated, PasswordLastSet 
 
     $pwdNeverchanged = @()
 
-    foreach ($user in $users){
+    foreach ($user in @($allUsers)){
         $created = $user.WhenCreated
         $pwllastset = $user.PasswordLastSet
         If ($created -eq $pwllastset) {
@@ -28,7 +28,7 @@ Function Inspect-PasswordNeverChanged{
     
     if ($pwdNeverchanged.count -ne 0){
         $pwdNeverchanged | Export-Csv "$path\PWDNeverChanged.csv" -NoTypeInformation
-        Return $pwdNeverchanged.count
+        Return $pwdNeverchanged.SamAccountName
     }
 }
 

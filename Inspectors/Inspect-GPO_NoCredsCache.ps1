@@ -27,4 +27,6 @@ Function Inspect-GPO_NoCredsCache{
     Return $null
 }
 
-Return Inspect-GPO_NoCredsCache
+do {
+	Write-Progress -Activity "Gathering Information" -Status "Gathering..." -PercentComplete -1
+} while (Inspect-GPO_NoCredsCache)

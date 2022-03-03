@@ -15,11 +15,11 @@
 $path = @($out_path)
 Function Inspect-PasswordLongevity{
     $Date = (Get-Date).adddays(-120) | Get-Date -Format MM/dd/yyyy
-    $pwdNotchanged = Get-ADUser -filter {(PasswordLastSet -lt $Date) -and (PasswordNeverExpires -eq $false)} -Properties PasswordLastSet
+    $pwdNotchanged = @($allUsers) | Where-Object {($_.PasswordLastSet -lt $Date) -and ($_.PasswordNeverExpires -eq $false) -and ($_.enabled -eq "true")}
     
-    if ($pwdNotchanged.count -gt 0 -and $pwdNotchanged.enabled -eq $true){
+    if ($pwdNotchanged.count -gt 0){
         $pwdNotchanged | Export-Csv "$path\PWD-Longetivity.csv" -NoTypeInformation
-        Return $pwdNotchanged.count
+        Return $pwdNotchanged.SamAccountName
     }
 }
 

@@ -13,7 +13,9 @@ Function Inspect-GPOPermissions {
      
      $results | Out-File -FilePath "$path\GPOsWithExcessivePermissions.txt"
 
-     Return $results.count
+     Return $results.GPO
 }
 
-Inspect-GPOPermissions
+do {
+	Write-Progress -Activity "Gathering Information" -Status "Gathering..." -PercentComplete -1
+} while (Inspect-GPOPermissions)

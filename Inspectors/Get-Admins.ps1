@@ -12,7 +12,7 @@
 #>
 
 Function Get-Admins{
-    $admins = Get-ADUser -Filter {adminCount -gt 0} -Properties adminCount
+    $admins = @($allUsers) | Where-Object {$_.adminCount -gt 0}
 
     If ($admins.count -gt 0){
         Return $admins.samaccountname

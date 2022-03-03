@@ -32,7 +32,7 @@ function Get-LAPSReaders{
 
     If ($users.count -gt 0){
         $users | Export-Csv "$path\LAPSReaders.csv" -NoTypeInformation
-        return $users.count
+        return $users.SamAccountName
     }
 
     return $null

@@ -5,7 +5,14 @@ function Inspect-ADGroupACLs{
     $results = @()
 
     foreach($group in $groups){
-        $result = (Get-ACL -Path "Microsoft.ActiveDirectory.Management.dll\ActiveDirectory:://RootDSE/$((get-adgroup $group).distinguishedname)").access | Select-Object identityreference,  accesscontroltype, activedirectoryrights
+        $permissions = (Get-ACL -Path "Microsoft.ActiveDirectory.Management.dll\ActiveDirectory:://RootDSE/$((get-adgroup $group).distinguishedname)").access | Select-Object identityreference,  accesscontroltype, activedirectoryrights
+        
+        $result = New-Object psobject
+        $result | Add-Member -MemberType NoteProperty -Name 'Name' -Value $group.Name
+        $result | Add-Member -MemberType NoteProperty -Name 'Delegate' -Value ($permissions.identityreference | Out-String)
+        $result | Add-Member -MemberType NoteProperty -Name 'AccessControlType' -Value ($permissions.accesscontroltype | Out-String)
+        $result | Add-Member -MemberType NoteProperty -Name 'ActiveDirectoryRights' -Value ($permissions.activedirectoryrights | out-string)
+        
         $results += $result
     }
 

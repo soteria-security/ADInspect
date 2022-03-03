@@ -25,4 +25,6 @@ Function Inspect-GPOLogPolicies{
     Return $null
 }
 
-Return Inspect-GPOLogPolicies
+do {
+	Write-Progress -Activity "Gathering Information" -Status "Gathering..." -PercentComplete -1
+} while (Inspect-GPOLogPolicies)

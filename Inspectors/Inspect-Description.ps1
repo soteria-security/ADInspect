@@ -1,7 +1,7 @@
 $path = @($out_path)
 
 Function Inspect-Description{
-    $allUsers = Get-ADUser -Filter * -Property Description
+    #$allUsers = Get-ADUser -Filter * -Property Description
     $Users = @()
 
     #Define objects and patterns to match
@@ -11,7 +11,7 @@ Function Inspect-Description{
     $ip = '(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
     $strings = @("creds","pass","password","username","credential","VNC","remote","un","pw",$SSN,$phone,$unc,$ip)
 
-    Foreach ($user in $allUsers){
+    Foreach ($user in @($allUsers)){
         foreach ($string in $strings){
             $Users += $user | Where-Object {$_.Description -match $string}
         }
