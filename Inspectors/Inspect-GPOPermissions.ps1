@@ -16,6 +16,4 @@ Function Inspect-GPOPermissions {
      Return $results.GPO
 }
 
-do {
-	Write-Progress -Activity "Gathering Information" -Status "Gathering..." -PercentComplete -1
-} while (Inspect-GPOPermissions)
+Return Inspect-GPOPermissions

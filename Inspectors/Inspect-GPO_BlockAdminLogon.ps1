@@ -27,6 +27,4 @@ Function Inspect-GPO_BlockAdminLogon{
     Return $null
 }
 
-do {
-	Write-Progress -Activity "Gathering Information" -Status "Gathering..." -PercentComplete -1
-} while (Inspect-GPO_BlockAdminLogon)
+Return Inspect-GPO_BlockAdminLogon

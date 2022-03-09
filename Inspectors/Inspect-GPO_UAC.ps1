@@ -26,6 +26,4 @@ Function Inspect-GPO_UAC {
     }
 }
 
-do {
-	Write-Progress -Activity "Gathering Information" -Status "Gathering..." -PercentComplete -1
-} while (Inspect-GPO_UAC)
+Return Inspect-GPO_UAC
