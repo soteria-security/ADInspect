@@ -1,4 +1,4 @@
-#$path = @($out_path)
+$path = @($out_path)
 
 Function Inspect-GPOPermissions {
    $results = @()
@@ -13,7 +13,7 @@ Function Inspect-GPOPermissions {
      
      $results | Out-File -FilePath "$path\GPOsWithExcessivePermissions.txt"
 
-     Return $results.GPO
+     Return $results.GPO | Select-Object -Unique
 }
 
-Return Inspect-GPOPermissions
+Inspect-GPOPermissions
