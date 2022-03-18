@@ -27,12 +27,12 @@ function Get-LAPSReaders{
     foreach ($object in $objects){
         $obj = $object.IndexOf("\")
         $name = $object.substring($obj+1)
-        $users += Get-ADObject -filter {(objectClass -eq "user") -or (objectClass -eq "group") -and (name -like $name)} 
+        $users += Get-ADObject -filter {name -like $name}
     }
 
     If ($users.count -gt 0){
         $users | Export-Csv "$path\LAPSReaders.csv" -NoTypeInformation
-        return $users.count
+        return $users.SamAccountName
     }
 
     return $null

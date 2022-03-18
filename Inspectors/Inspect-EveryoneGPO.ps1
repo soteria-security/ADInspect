@@ -1,42 +1,44 @@
+<#
+HUGE thanks to @ChrisDent and @cofl from various Discord communities for helping me nail this one down.
+#>
+
+
+$path = @($out_path)
+
 function Inspect-EveryoneGPO {
-    $ErrorActionPreference = “silentlycontinue”
+    $ErrorActionPreference = "SilentlyContinue"
+
+    $affectedGPOs = @()
 
     $GPOs = Get-GPO -All
-    
-    $affectedGPOs = @()
-    
-    $results = @()
-    
+
     Foreach ($GPO in $GPOs) {
         [xml]$gpoReport = Get-GPOReport -Guid $GPO.Id -ReportType XML
+
+        $gpPath = @("NetworkShares", "FileSettings", "RegistrySettings", "MsiApplication")
+
+        Foreach ($x in $gpPath) {
+            $file = $gpoReport.gpo.computer.extensiondata.extension.$x.path
+            $permissions = $gpoReport.gpo.computer.extensiondata.extension.$x.securitydescriptor.permissions.trusteepermissions
+
+            $ace = ($permissions | Where-Object { $_.trustee.name.'#text' -eq 'Everyone' }).standard.SoftwareInstallationGroupedAccessEnum
     
-        $perms = $gpoReport.gpo.computer.extensiondata.extension.msiapplication.securitydescriptor.permissions.trusteepermissions
-        $file = $gpoReport.gpo.computer.extensiondata.extension.msiapplication.path
-        $trusteeName = $perms.trustee.name.'#text'
-        $trusteePermissions = $perms.standard.SoftwareInstallationGroupedAccessEnum
-    
-        $result = New-Object psobject
-        $result | Add-Member -MemberType NoteProperty -Name 'Trustee Name' -Value $trusteeName
-        $result | Add-Member -MemberType NoteProperty -Name 'Trustee Permissions' -Value $trusteePermissions
-    
-        $results += $result
-    
-        $index = [array]::indexof($results.'Trustee Name','Everyone')
-        $name = $results.'Trustee Name'[$index]
-        $everyonePermissions = $results.'Trustee Permissions'[$index]
-    
-        $affectedGPO = New-Object psobject
-    
-        $affectedGPO | Add-Member -MemberType NoteProperty -name 'Name' -Value $GPO.DisplayName
-        $affectedGPO | Add-Member -MemberType NoteProperty -name 'LinksTo' -Value $gpoReport.GPo.LinksTo.SOMPath
-        $affectedGPO | Add-Member -MemberType NoteProperty -Name 'Affected File' -Value $file
-        $affectedGPO | Add-Member -MemberType NoteProperty -Name 'Trustee Name' -Value $name
-        $affectedGPO | Add-Member -MemberType NoteProperty -Name 'Trustee Permissions' -Value $everyonePermissions
-    
-        $affectedGPOs += $affectedGPO
+            if ($ace) {
+                $affectedGPO = [pscustomobject]@{
+                    Name                  = $GPO.DisplayName
+                    LinksTo               = $GPO.LinksTo.SOMPath
+                    'Affected File'       = $file
+                    'Trustee Name'        = $name
+                    'Trustee Permissions' = $ace
+                }
+                $affectedGPOs += $affectedGPO
+            }
+        }
     }
-    
-    $affectedGPOs
+
+    $affectedGPOs | Out-File -FilePath "$path\GPOAssignmentsExcessivePermissions.txt"
+
+    return $affectedGPOs.Name
 }
 
 Return Inspect-EveryoneGPO

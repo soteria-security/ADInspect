@@ -1,13 +1,19 @@
+$path = @($out_path)
+
 Function Inspect-GPOPermissions {
-    $perms = Foreach ($GPO in (Get-GPO -All)){
-        Foreach ($Perm in (Get-GPPermissions $GPO.DisplayName -All)) {
-           New-Object PSObject -property @{GPO=$GPO.DisplayName;Trustee=$Perm.Trustee.Name;Permission=$Perm.Permission}
+   $results = @()
+
+   Foreach ($GPO in (Get-GPO -All)){
+      Foreach ($Perm in (Get-GPPermissions $GPO.DisplayName -All)) {
+         $result = New-Object PSObject -property @{GPO=$GPO.DisplayName;Trustee=$Perm.Trustee.Name;Permission=$Perm.Permission}
+         
+         $results += $result | Where-Object {($_.Trustee -eq 'Everyone') -or ($_.Trustee -eq 'Authenticated Users')  -or ($_.Trustee -eq 'Domain Users') -and ($_.Permission -like "GpoEdit*")}
         }
      }
-     $perms | Where-Object {($_.Trustee -eq 'Everyone') -or ($_.Trustee -eq 'Authenticated Users')} | Select-Object GPO, Trustee, Permission    
+     
+     $results | Out-File -FilePath "$path\GPOsWithExcessivePermissions.txt"
+
+     Return $results.GPO | Select-Object -Unique
 }
 
 Inspect-GPOPermissions
-
-
-

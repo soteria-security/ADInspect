@@ -1,7 +1,7 @@
 {
 	"FindingName": "Scheduled Tasks found on Domain Controllers",
 	"Description": "Scheduled tasks have been known to be exploited to allow attackers to elevate privileges, gain persistence, and download and deploy malware. This finding indicates that scheduled tasks were found on the Domain Controllers within the domain queried.",
-	"Remediation": "Review sheduled tasks listed in the accompanying file(s) for legitimacy and validate that they are needed. Remove any unneeded, unnecessary tasks.",
+	"Remediation": "Review scheduled tasks listed in the accompanying file(s) for legitimacy and validate that they are needed. Remove any unneeded, unnecessary tasks.",
 	"AffectedObjects": "",
 	"Risk": "Informational",
 	"References": [

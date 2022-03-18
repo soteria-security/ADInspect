@@ -1,6 +1,6 @@
 {
 	"FindingName": "No Group Policy Objects to Mitigate Accidental Script Execution",
-	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to replace the default file associations with a program of your choice. Replacing the default file association of JavaScript (.js) file extensions to a program like notepad will mitigate the risk associated with automated or inadvertant file execution. The following extensions are evaluated: js, jse, cjs, mjs, iced, liticed, iced.md, cs, coffee, litcoffee, coffee.md, ts, tsx, ls, es6, es, jsx, sjs, eg",
+	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to replace the default file associations with a program of your choice. Replacing the default file association of JavaScript (.js) file extensions to a program like notepad will mitigate the risk associated with automated or inadvertent file execution. The following extensions are evaluated: js, jse, cjs, mjs, iced, liticed, iced.md, cs, coffee, litcoffee, coffee.md, ts, tsx, ls, es6, es, jsx, sjs, eg",
 	"Remediation": "Create a Group Policy Object to replace the default file association for JavaScript file extensions.",
 	"AffectedObjects": "",
 	"Risk": "High",

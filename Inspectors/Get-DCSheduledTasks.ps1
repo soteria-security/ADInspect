@@ -4,14 +4,14 @@ Function Get-DCSheduledTasks{
     #Get a list of all domain controllers
     $DCs = Get-ADDomainController -Filter *
 
-    $allTasks = 0
+    $allTasks = @()
 
-    foreach ($dc in $DCs){
-        Invoke-Command -ComputerName $dc.name -ScriptBlock {
-            $tasks = Get-ScheduledTask | Get-ScheduledTaskInfo
-            If ($tasks.count -gt 0){
-                $tasks | Export-Csv -Path "$path\$($DC.name)_ScheduledTasks.csv" -NoTypeInformation
-                $allTasks += $tasks.count
+    foreach ($dc in $DCs.Name){
+        $tasks = Get-ScheduledTask -CimSession $dc | Where-Object {$_.state -match "Running"} | Get-ScheduledTaskInfo
+        If ($tasks.count -gt 0){
+            $tasks | Export-Csv -Path "$path\$($DC)_ScheduledTasks.csv" -NoTypeInformation
+            foreach ($task in $tasks) {
+                $allTasks += $task.TaskName
             }
         }
     }

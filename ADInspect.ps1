@@ -100,6 +100,31 @@ $org_name = $org_name.DNSRoot
 $selected_inspectors = $SelectedInspectors
 $excluded_inspectors = $ExcludedInspectors
 
+#Check for output directory or create it if missing
+Try {
+	If ((Test-Path $out_path) -eq $false){
+		New-Item -ItemType Directory -Force -Path $out_path | Out-Null
+		If ((Test-Path $out_path) -eq $true){
+			$path = Resolve-Path $out_path
+			Write-Output "$($path.Path) created successfully!"
+		}
+	}
+	Else {
+		$path = Resolve-Path $out_path
+		Write-Output "$($path.Path) already exists!"
+	}
+}
+Catch {
+	Write-Error "Directory not created! Please check permissions."
+	Confirm-Close
+}
+
+#Get all AD User info to process later and save cycles on the host
+do {
+	Write-Progress -Activity "Gathering User Information" -Status "Gathering..." -PercentComplete -1
+} while (Get-ADUser -Filter * -Properties * | Select-Object AccountExpirationDate,@{N = "AccountExpires"; E = {[DateTime]::FromFileTime($_.AccountExpires)}},AccountLockoutTime,AccountNotDelegated,adminCount,AllowReversiblePasswordEncryption,AuthenticationPolicy,AuthenticationPolicySilo,BadLogonCount,badPasswordTime,badPwdCount,CannotChangePassword,CanonicalName,CN,Created,createTimeStamp,Deleted,Description,DisplayName,DistinguishedName,DoesNotRequirePreAuth,dSCorePropagationData,EmailAddress,Enabled,GivenName,instanceType,isCriticalSystemObject,isDeleted,KerberosEncryptionType,LastBadPasswordAttempt,LastKnownParent,lastLogoff,@{N = "LastLogon"; E = {[DateTime]::FromFileTime($_.LastLogon)}},LastLogonDate,lastLogonTimestamp,LockedOut,logonCount,LogonWorkstations,MemberOf,MNSLogonAccount,Modified,modifyTimeStamp,msDS-User-Account-Control-Computed,Name,nTSecurityDescriptor,PasswordExpired,PasswordLastSet,PasswordNeverExpires,PasswordNotRequired,PrimaryGroup,primaryGroupID,PrincipalsAllowedToDelegateToAccount,ProtectedFromAccidentalDeletion,@{N = "pwdlastset"; E = {[DateTime]::FromFileTime($_.pwdlastset)}},SamAccountName,sAMAccountType,ScriptPath,sDRightsEffective,@{N = "ServicePrincipalNames"; E = {$_.ServicePrincipalNames}},SID,SIDHistory,Surname,Title,TrustedForDelegation,TrustedToAuthForDelegation,UseDESKeyOnly,userAccountControl,UserPrincipalName,whenChanged,whenCreated  | Export-Csv -Path "$out_path\AllUsers.csv" -NoTypeInformation)
+
+$allUsers = Import-Csv "$out_path\AllUsers.csv"
 
 # Get a list of every available detection module by parsing the PowerShell
 # scripts present in the .\inspectors folder. 
@@ -130,23 +155,7 @@ Else {
 }
 
 
-Try {
-	If ((Test-Path $out_path) -eq $false){
-		New-Item -ItemType Directory -Force -Path $out_path | Out-Null
-		If ((Test-Path $out_path) -eq $true){
-			$path = Resolve-Path $out_path
-			Write-Output "$($path.Path) created successfully!"
-		}
-	}
-	Else {
-		$path = Resolve-Path $out_path
-		Write-Output "$($path.Path) already exists!"
-	}
-}
-Catch {
-	Write-Error "Directory not created! Please check permissions."
-	Confirm-Close
-}
+
 
 # Maintain a list of all findings, beginning with an empty list.
 $findings = @()
@@ -279,8 +288,11 @@ $output = $templates.ReportTemplate.Replace($templates.FindingShortTemplate, $sh
 $output = $output.Replace($templates.FindingLongTemplate, $long_findings_html)
 $output = $output.Replace($templates.ExecsumTemplate, $templates.ExecsumTemplate.Replace("{{CMDLINEFLAGS}}", $flags))
 
+#Create the output report
 $output | Out-File -FilePath $out_path\Report_$(Get-Date -Format "yyyy-MM-dd_hh-mm-ss").html
 
+
+#Create the output zip file
 $compress = @{
 	Path = $out_path
 	CompressionLevel = "Fastest"

@@ -11,8 +11,6 @@ Function Inspect-GPO_UAC {
 
     #Go through each Object and check its XML against $String
     Foreach ($GPO in $GPOs)  {
-        Write-Output "Working on $($GPO.DisplayName)"
-        
         #Get Current GPO Report (XML)
         $CurrentGPOReport = Get-GPOReport -All -Domain $domain.DNSRoot -Server $domain.PDCEmulator -ReportType XML
         

@@ -16,9 +16,9 @@ $path = @($out_path)
 Function Inspect-PasswordNotRequired{
     $pwdNotrequired = Get-ADUser -Filter {UserAccountControl -band 0x0020}
     
-    if ($pwdNotrequired.count -gt 0){
-        Return $pwdNotrequired.count 
-        $pwdNotrequired | Export-Csv "PWDNotRequired.csv" -NoTypeInformation
+    if ($pwdNotrequired.count -gt 0){ 
+        $pwdNotrequired | Export-Csv "$path\PWDNotRequired.csv" -NoTypeInformation
+        Return $pwdNotrequired.count
     }
 }
 

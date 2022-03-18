@@ -16,8 +16,8 @@ $path = @($out_path)
 Function Inspect-ReversibleEncryptionPassword{
     $Users = Get-ADUser -Filter 'userAccountControl -band 128' -Properties userAccountControl
     if ($users.count -gt 0){
-        Return $Users.count
         Export-Csv "$path\UserswithReversibleEncryption.csv" -NoTypeInformation
+        Return $Users.count
     }
 }
 

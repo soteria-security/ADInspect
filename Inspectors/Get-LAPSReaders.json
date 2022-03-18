@@ -1,7 +1,7 @@
 {
 	"FindingName": "Accounts with Extended Rights to Read LAPS Passwords Found",
 	"Description": "Accounts in an Active Directory with extended or overly permissive rights to OU's and Computers may be granted unintentional permissions to read, modify, or administer the Local Admin Password Solution (LAPS) on domain objects.",
-	"Remediation": "Identiifed accounts should be reviewed to ensure that they are supposed to have the rights to view, read, or modify LAPS password information. Auditing of LAPS access can be configured by running the folling PowerShell command: Set-AdmPwdAuditing –OrgUnit: <OU Name> -AuditedPrincipals: :<users/groups to be audited>",
+	"Remediation": "Identified accounts should be reviewed to ensure that they are supposed to have the rights to view, read, or modify LAPS password information. Auditing of LAPS access can be configured by running the following PowerShell command: Set-AdmPwdAuditing -OrgUnit \"OU Name\" -AuditedPrincipals \"users/groups to be audited\"",
 	"AffectedObjects": "",
 	"Risk": "Critical",
 	"References": [

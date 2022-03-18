@@ -29,7 +29,7 @@ Function Inspect-PolicytoPreventAccidentalScriptExecution{
         }
 
     If ($mitigatingPolicies.count -eq 0){
-        Return $missingExtensions
+        Return "No GPO to block accidental execution of $($missingExtensions | Select-Object -Unique)"
         }
 }
 

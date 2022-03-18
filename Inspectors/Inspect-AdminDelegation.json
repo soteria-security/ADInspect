@@ -1,6 +1,6 @@
 {
-	"FindingName": "Misconfigured Adminstrative Accounts Found",
-	"Description": "Adminstrative accounts were found that are are not configured to have the 'This account is sensitive and cannot be delegated' option enabled. This leaves the account vunlerable to potential abuse of delegated rights to change the admistrative account password, disable, copy, or modify the account properties.",
+	"FindingName": "Misconfigured Administrative Accounts Found",
+	"Description": "Administrative accounts were found that are not configured to have the 'This account is sensitive and cannot be delegated' option enabled. This leaves the account vulnerable to potential abuse of delegated rights to change the administrative account password, disable, copy, or modify the account properties.",
 	"Remediation": "This can be remediated by running the following PowerShell command as a privileged user (Domain Admin): 'Get-ADUser -filter {admincount -like '1'} -pr AccountNotDelegated | Where-Object {$_.AccountNotDelegated -eq $false} | Set-ADUser -AccountNotDelegated $true'",
 	"AffectedObjects": "",
 	"Risk": "Critical",

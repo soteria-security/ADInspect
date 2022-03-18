@@ -1,7 +1,7 @@
 {
 	"FindingName": "Machine Quota is not Restricted",
 	"Description": "Microsoft default Active Directory configuration allows any member of Authenticated Users (any enabled user account - including user-based Service Accounts) to join up to ten (10) machines to the domain. This can be abused a number of ways allowing attackers to join malicious machines to the domain or elevate privileges on a machine a compromised account has access to.",
-	"Remediation": "It is recommended to set the ms-DS-MachineAccountQuota to zero (0), and instead delegate permissions to specified accounts or groups for domian joining machines. A quick, easy way to set the machine quota to zero is via PowerShell: Set-ADDomain (Get-ADDomain).distinguishedname -Replace @{\"ms-ds-MachineAccountQuota\"=\"0\"}",
+	"Remediation": "It is recommended to set the ms-DS-MachineAccountQuota to zero (0), and instead delegate permissions to specified accounts or groups for domain joining machines. A quick, easy way to set the machine quota to zero is via PowerShell: Set-ADDomain (Get-ADDomain).distinguishedname -Replace @{\"ms-ds-MachineAccountQuota\"=\"0\"}",
 	"AffectedObjects": "",
 	"Risk": "High",
 	"References": [

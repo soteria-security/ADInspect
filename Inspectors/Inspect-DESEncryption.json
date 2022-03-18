@@ -1,6 +1,6 @@
 {
 	"FindingName": "Accounts with Ability to Use DES Encryption Found",
-	"Description": "Accounts were found that have can authenticate using the insecure DES ciphers. This leaves the account vunlerable to trivial password recovery.",
+	"Description": "Accounts were found that have can authenticate using the insecure DES ciphers. This leaves the account vulnerable to trivial password recovery.",
 	"Remediation": "This can be remediated by removing the 'Use Kerberos DES encryption types for this account' setting from the identified users accounts. Discussions should be had with any stakeholders to ensure that legacy systems and services required for business operation are not adversely affected.",
 	"AffectedObjects": "",
 	"Risk": "Critical",
