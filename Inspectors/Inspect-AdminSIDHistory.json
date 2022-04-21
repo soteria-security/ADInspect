@@ -1,0 +1,17 @@
+{
+	"FindingName": "Users with an Admin SID in SID History found",
+	"Description": "SID history is an attribute that is set on Active Directory objects when migrated from one domain to another. When an object is moved to a new domain, the previous SID is added to the SIDHistory attribute.\nDesigned to allow administrators and users to maintain access to resources on previous domains during migration, SID history allows for abuse of permissions between domains in a forest. \nIf an account was migrated from a previous domain and was privileged in that domain, the permissions can still be in affect without that account being a member of a privileged group in the current domain. \nAttackers can abuse this in a domain without SID Filtering enabled, and tools exist to inject SID History objects to elevate privileges.",
+	"Remediation": "Review the returned accounts and ensure that these accounts are not the result of SID injection attacks. Remove SID History objects for domains no longer in use. Configure monitoring for events 4765 and 4766 on Domain Controllers.",
+	"AffectedObjects": "",
+	"Risk": "Medium",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows/win32/adschema/a-sidhistory",
+			"Text": "SID-History attribute"
+		},
+        {
+            "Url":"https://adsecurity.org/?p=1772",
+            "Text":"Sneaky Active Directory Persistence #14: SID History"
+        }
+	]
+}
