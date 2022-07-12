@@ -1,0 +1,17 @@
+{
+	"FindingName": "Members of Administrative Groups Not Members of Protected Users",
+	"Description": "Members of Administrative groups have elevated privileges in an Active Directory environment. Compromise of these accounts allows attackers to control various aspects of the domain, up to and including, a complete domain takeover. Introduced in Server 2012 R2, when the Domain Functional Level is 2012 R2 or higher, Protected Users security group proactively secures the member accounts of the users placed in the group.\nPer Microsoft, when the signed in user is a member of the Protected Users group the following protections are applied:\n \t* Credential delegation (CredSSP) will not cache the user's plain text credentials even when the Allow delegating default credentials Group Policy setting is enabled.\n \t* Beginning with Windows 8.1 and Windows Server 2012 R2, Windows Digest will not cache the user's plain text credentials even when Windows Digest is enabled.\n \t* NTLM will not cache the user's plain text credentials or NT one-way function (NTOWF)\n \t* Kerberos will no longer create DES or RC4 keys. Also it will not cache the user's plain text credentials or long-term keys after the initial TGT is acquired\n \t* A cached verifier is not created at sign-in or unlock, so offline sign-in is no longer supported.",
+	"Remediation": "Review members of these Administrative groups and ensure that they should retain those permissions, and add the users to the Protected Users security group.",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group",
+			"Text": "Protected Users Security Group"
+		},
+		{
+			"Url": "https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-b--privileged-accounts-and-groups-in-active-directory#additional-built-in-and-default-groups-in-active-directory",
+			"Text": "Built-in and Default Accounts and Groups in Active Directory"
+		}
+	]
+}

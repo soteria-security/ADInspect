@@ -1,0 +1,25 @@
+{
+	"FindingName": "Successful Exploit Machine Accounts Found",
+	"Description": "Successful exploitation of CVE-2021-42278 and CVE-2021-42287 allows attackers to impersonate Domain Admins as an unprivileged user. A proof of concept exploit was released on GitHub, where the author of the exploit hard-coded Indicators of Compromise (IOC's) into the code to allow researches to validate the exploit. The exploit code has now been seen in use in the wild. If this result was returned, your Active Directory environment has likely been compromised.",
+	"Remediation": "As this result indicates successful exploitation and compromise of the Active Directory domain, remediation will be intensive. First, engage in any Incident Response/Disaster Recovery plans in place, consider engaging a third-party Incident Response partner. Response steps may include removing any unknown, unauthorized machine accounts from the environment (in this case, any matching the naming format of \"SAMTHEADMIN\" followed by any numerical value), forcing password changes on all accounts within the domain, and setting the ms-DS-MachineAccountQuota to zero (0), instead delegating permissions to specified accounts or groups for domain joining machines..",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+			"Url": "https://twitter.com/malmoeb/status/1511760068743766026",
+			"Text": "@malmoeb Twitter Status"
+		},
+        {
+			"Url": "https://docs.microsoft.com/en-us/troubleshoot/windows-server/identity/default-workstation-numbers-join-domain",
+			"Text": "Default limit to number of workstations a user can join to the domain"
+		},
+		{
+			"Url": "https://blog.compass-security.com/2020/03/domain-join-computers-the-proper-way/",
+			"Text": "Domain-Join Computers the Proper Way"
+		},
+		{
+			"Url":"https://github.com/WazeHell/sam-the-admin",
+			"Text":"SAMTHEADMIN Exploit - GitHub"
+		}
+	]
+}
