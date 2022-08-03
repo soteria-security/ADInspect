@@ -1,0 +1,21 @@
+{
+	"FindingName": "No Group Policy Objects to Block ISO Execution Found",
+	"Description": "Group Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to disable unsafe protocols like SMBv1. While disabling or removing SMBv1 might cause some compatibility issues with old computers or software, SMBv1 has significant security vulnerabilities and should not be used.",
+	"Remediation": "Create a Group Policy Object to disable SMBv1 protocols.",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+			"Url": "https://www.bleepingcomputer.com/news/security/uptick-seen-in-iso-email-attachments-delivering-malware/",
+			"Text": "Uptick Seen in ISO Email Attachments Delivering Malware"
+		},
+        {
+            "Url": "https://winaero.com/remove-mount-context-menu-windows-10/",
+            "Text": "Remove Mount Context Menu in Windows 10"
+        },
+        {
+            "Url": "https://twitter.com/mttaggart/status/1553476660439068677?s=21&t=7446tcqkouqMZYGiVCRK1w/",
+            "Text": "Twitter @mttaggart - Alternative Mitigation Method"
+        }
+	]
+}
