@@ -1,0 +1,25 @@
+{
+	"FindingName": "LAPS Not Installed",
+	"Description": "Local Admin Password Solution (LAPS) was not found on the domain. LAPS is a free software solution designed to automatically manage the local administrator account's password on all machines in the domain. Many organizations use sysprepped images to deploy workstations across the environment. These images contain all the necessary and required software for the organization's users to perform their job functions. Unfortunately, these images also copy the local SAM database, meaning that all machines created with this image share a common local administrator password. This solution, when configured appropriately, prevents attackers from moving laterally using the machine's local admin password by changing the password of the account on each machine, and automatically rotates the password at set intervals.",
+	"Remediation": "Determine if there is a need for LAPS, or if there is already an appropriate solution in place.",
+	"AffectedObjects": "",
+	"Risk": "Critical",
+	"References": [
+		{
+			"Url": "https://adsecurity.org/?p=3164",
+			"Text": "Microsoft LAPS Security & Active Directory LAPS Configuration Recon"
+		},
+        {
+            "Url": "https://m365internals.com/2021/05/14/how-to-roll-out-microsoft-laps-via-gpo-and-use-it-for-administration/",
+            "Text": "How To Roll Out Microsoft LAPS Via GPO And Why You Should Do It?"
+        },
+		{
+			"Url": "https://secframe.com/blog/2020/laps_password/",
+			"Text": "WHO CAN SEE LAPS PASSWORDS?"
+		},
+		{
+			"Url": "https://techcommunity.microsoft.com/t5/core-infrastructure-and-security/you-might-want-to-audit-your-laps-permissions/ba-p/2280785",
+			"Text": "You Might Want to Audit Your LAPS Permissions...."
+		}
+	]
+}

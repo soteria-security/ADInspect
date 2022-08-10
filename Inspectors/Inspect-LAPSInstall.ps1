@@ -5,15 +5,31 @@ $errorHandling = "$((Get-Item $PSScriptRoot).Parent.FullName)\Write-ErrorLog.ps1
 . $errorHandling
 
 
-$path = @($outpath)
+<#
+.SYNOPSIS
+    Gather information about Active Directory Domain
+.DESCRIPTION
+    This script checks Active Directory Domain and offers remediation steps
+.COMPONENT
+    PowerShell, Active Directory PowerShell Module, and sufficient rights to change admin accounts
+.ROLE
+    Domain Admin or Delegated rights
+.FUNCTIONALITY
+    Gather information about Active Directory Domain
+#>
 
-Function Inspect-DangerousDelegation {
+
+Function Inspect-LAPSInstall{
     Try {
-        $DangerousDelegation = Import-CSV -Path (Get-ChildItem -Recurse -Path $path -Filter "*_ACLs.csv").FullName -Delimiter '^' | Where-Object {($_.AccessControlType -eq "Allow") -and ($_.ActiveDirectoryRights -like "GenericAll") -or ($_.ActiveDirectoryRights -like "*Write*")} 
-        If ($DangerousDelegation.Count -ne 0){
-            $DangerousDelegation | Export-CSV "$($path)\DangerousDegelationPermissions.csv" -NoTypeInformation -Delimiter '^'
+        $schemaName = (Get-ADRootDSE | Select-Object schema*).schemaNamingContext
+
+        $lapsChk = Get-ADObject "CN=ms-mcs-admpwd,$schemaName"
+
+        If(!$lapsChk){
+            return "LAPS not installed on the domain"
         }
-        Return $null
+
+        return $null
     }
     Catch {
     Write-Warning "Error message: $_"
@@ -31,4 +47,4 @@ Function Inspect-DangerousDelegation {
     }
 }
 
-Return Inspect-DangerousDelegation
+Return Inspect-LAPSInstall

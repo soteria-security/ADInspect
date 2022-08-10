@@ -1,3 +1,10 @@
+$ErrorActionPreference = "Stop"
+
+$errorHandling = "$((Get-Item $PSScriptRoot).Parent.FullName)\Write-ErrorLog.ps1"
+
+. $errorHandling
+
+
 <#
 .SYNOPSIS
     Gather information about Active Directory High-value target accounts
@@ -12,12 +19,28 @@
 #>
 
 
-$path = @($out_path)
+$path = @($outpath)
 Function Inspect-ReversibleEncryptionPassword{
-    $Users = Get-ADUser -Filter 'userAccountControl -band 128' -Properties userAccountControl
-    if ($users.count -gt 0){
-        Export-Csv "$path\UserswithReversibleEncryption.csv" -NoTypeInformation
-        Return $Users.count
+    Try {
+        $Users = Get-ADUser -Filter 'userAccountControl -band 128' -Properties userAccountControl
+        if ($users.count -gt 0){
+            Return $Users.count
+            $users | Export-Csv "$path\UserswithReversibleEncryption.csv" -NoTypeInformation
+        }
+    }
+    Catch {
+    Write-Warning "Error message: $_"
+    $message = $_.ToString()
+    $exception = $_.Exception
+    $strace = $_.ScriptStackTrace
+    $failingline = $_.InvocationInfo.Line
+    $positionmsg = $_.InvocationInfo.PositionMessage
+    $pscmdpath = $_.InvocationInfo.PSCommandPath
+    $failinglinenumber = $_.InvocationInfo.ScriptLineNumber
+    $scriptname = $_.InvocationInfo.ScriptName
+    Write-Verbose "Write to log"
+    Write-ErrorLog -message $message -exception $exception -scriptname $scriptname -failinglinenumber $failinglinenumber -failingline $failingline -pscmdpath $pscmdpath -positionmsg $positionmsg -stacktrace $strace
+    Write-Verbose "Errors written to log"
     }
 }
 

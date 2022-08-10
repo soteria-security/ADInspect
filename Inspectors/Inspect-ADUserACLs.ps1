@@ -1,24 +1,40 @@
-$path = @($out_path)
+$ErrorActionPreference = "Stop"
+
+$errorHandling = "$((Get-Item $PSScriptRoot).Parent.FullName)\Write-ErrorLog.ps1"
+
+. $errorHandling
+
+
+$path = @($outpath)
 function Inspect-ADUserACLs{
-    $users = Get-ADUser -filter * | select -First 100
-    
-    $results = @()
-
-    foreach($user in $users){
-        $permissions = (Get-ACL "AD:$((get-aduser $user).distinguishedname)").access | Where-Object {($_.ActiveDirectoryRights -like "GenericAll") -or ($_.ActiveDirectoryRights -like "*Write*") -or ($_.ActiveDirectoryRights -like "*create*")} | Select-Object identityreference,  accesscontroltype, activedirectoryrights
-
-
-        $result = New-Object psobject
-        $result | Add-Member -MemberType NoteProperty -Name 'Name' -Value $user.Name
-        $result | Add-Member -MemberType NoteProperty -Name 'Delegate' -Value ($permissions.identityreference | Out-String)
-        $result | Add-Member -MemberType NoteProperty -Name 'AccessControlType' -Value ($permissions.accesscontroltype | Out-String)
-        $result | Add-Member -MemberType NoteProperty -Name 'ActiveDirectoryRights' -Value ($permissions.activedirectoryrights | out-string)
+    Try{
+        $users = Get-ADUser -filter *
         
-        $results += $result
-        
+        $path = New-Item -ItemType Directory -Force -Path "$($path)\AD_User_ACLs"
+
+        foreach($user in $users){
+            $perms = (Get-ACL "AD:$($user.DistinguishedName)").Access | Where-Object {($_.AccessControlType -eq "Allow") -and ($_.ActiveDirectoryRights -like "GenericAll") -or ($_.ActiveDirectoryRights -like "*Write*")} | Select @{n="samaccountname";e={$user.samaccountname}},@{n="enabled";e={$user.enabled}},ActiveDirectoryRights,InheritanceType,AccessControlType,IdentityReference,IsInherited 
+            
+            $perms | Export-CSV -Path "$path\$($user.Name)_DelegatedRights.csv" -NoTypeInformation -Delimiter '^'
+           <# $perms = dsacls $user.DistinguishedName 
+            $perms | Out-File -FilePath "$path\$($user.Name)_DelegatedRights.txt"#>
+        }
     }
-
-    $results | Export-Csv "$path\UserObject_ACLs.csv" -notypeinformation 
+    Catch {
+    Write-Warning "Error message: $_"
+    $message = $_.ToString()
+    $exception = $_.Exception
+    $strace = $_.ScriptStackTrace
+    $failingline = $_.InvocationInfo.Line
+    $positionmsg = $_.InvocationInfo.PositionMessage
+    $pscmdpath = $_.InvocationInfo.PSCommandPath
+    $failinglinenumber = $_.InvocationInfo.ScriptLineNumber
+    $scriptname = $_.InvocationInfo.ScriptName
+    Write-Verbose "Write to log"
+    Write-ErrorLog -message $message -exception $exception -scriptname $scriptname -failinglinenumber $failinglinenumber -failingline $failingline -pscmdpath $pscmdpath -positionmsg $positionmsg -stacktrace $strace
+    Write-Verbose "Errors written to log"
+    }
 }
 
 Return Inspect-ADUserACLs
+

@@ -1,3 +1,10 @@
+$ErrorActionPreference = "Stop"
+
+$errorHandling = "$((Get-Item $PSScriptRoot).Parent.FullName)\Write-ErrorLog.ps1"
+
+. $errorHandling
+
+
 <#
 .SYNOPSIS
     Gather information about Active Directory stale accounts
@@ -11,14 +18,30 @@
     Gather information about Active Directory stale accounts
 #>
 
-$path = @($out_path)
+$path = @($outpath)
 
 Function Get-StaleAccounts{
-    $stale_accounts = @($allUsers) | Where-Object {($_.enabled -eq "True") -and ($_.lastlogondate -lt (Get-Date).adddays(-120))}
-    
-    if ($stale_accounts.count -ne 0){
-        $stale_accounts | Export-Csv "$path\StaleAccounts.csv" -NoTypeInformation
-        Return $stale_accounts.count
+    Try {
+        $stale_accounts = Get-ADUser -filter {Enabled -eq $true} -properties LastLogonDate | Where-Object { $_.lastlogondate -lt (Get-Date).adddays(-120)}
+        
+        if ($stale_accounts.count -ne 0){
+            $stale_accounts | Export-Csv "$path\StaleAccounts.csv" -NoTypeInformation
+            Return $stale_accounts.count
+        }
+    }
+    Catch {
+    Write-Warning "Error message: $_"
+    $message = $_.ToString()
+    $exception = $_.Exception
+    $strace = $_.ScriptStackTrace
+    $failingline = $_.InvocationInfo.Line
+    $positionmsg = $_.InvocationInfo.PositionMessage
+    $pscmdpath = $_.InvocationInfo.PSCommandPath
+    $failinglinenumber = $_.InvocationInfo.ScriptLineNumber
+    $scriptname = $_.InvocationInfo.ScriptName
+    Write-Verbose "Write to log"
+    Write-ErrorLog -message $message -exception $exception -scriptname $scriptname -failinglinenumber $failinglinenumber -failingline $failingline -pscmdpath $pscmdpath -positionmsg $positionmsg -stacktrace $strace
+    Write-Verbose "Errors written to log"
     }
 }
 
