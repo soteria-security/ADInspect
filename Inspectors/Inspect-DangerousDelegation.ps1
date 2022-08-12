@@ -13,8 +13,11 @@ Function Inspect-DangerousDelegation {
 
         $DangerousDelegation = $data | ForEach-Object {Import-CSV -Path $_  -Delimiter '^' | Where-Object {($_.AccessControlType -eq "Allow") -and ($_.ActiveDirectoryRights -like "GenericAll") -or ($_.ActiveDirectoryRights -like "*Write*")}}
 
+        $results = $DangerousDelegation.samaccountname | Get-Unique
+
         If ($DangerousDelegation.Count -ne 0){
             $DangerousDelegation | Export-CSV "$($path)\DangerousDegelationPermissions.csv" -NoTypeInformation -Delimiter '^'
+            return $results
         }
         Return $null
     }
