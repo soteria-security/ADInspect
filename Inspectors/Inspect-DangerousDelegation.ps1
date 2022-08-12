@@ -9,7 +9,10 @@ $path = @($outpath)
 
 Function Inspect-DangerousDelegation {
     Try {
-        $DangerousDelegation = Import-CSV -Path (Get-ChildItem -Recurse -Path $path -Filter "*_ACLs.csv").FullName -Delimiter '^' | Where-Object {($_.AccessControlType -eq "Allow") -and ($_.ActiveDirectoryRights -like "GenericAll") -or ($_.ActiveDirectoryRights -like "*Write*")} 
+        $data = (Get-ChildItem -Recurse -Path $path | Where-Object {$_ -like "*_DelegatedRights.csv"}).FullName
+
+        $DangerousDelegation = $data | ForEach-Object {Import-CSV -Path $_  -Delimiter '^' | Where-Object {($_.AccessControlType -eq "Allow") -and ($_.ActiveDirectoryRights -like "GenericAll") -or ($_.ActiveDirectoryRights -like "*Write*")}}
+
         If ($DangerousDelegation.Count -ne 0){
             $DangerousDelegation | Export-CSV "$($path)\DangerousDegelationPermissions.csv" -NoTypeInformation -Delimiter '^'
         }

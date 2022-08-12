@@ -42,9 +42,7 @@ Function Inspect-PasswordPolicy {
             $flag = $true
         }
 
-        $data | Out-File "$($path)\Domain_Password_Policies.txt"
-
-        Return "$flag - Please refer to Domain_Password_Policies.txt output file"
+        Return [string]$data
     }
     Catch {
     Write-Warning "Error message: $_"

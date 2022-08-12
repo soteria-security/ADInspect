@@ -19,9 +19,14 @@ Function Inspect-GPOPermissions {
                 }
             }
             
-            $results | Out-File -FilePath "$path\GPOsWithExcessivePermissions.txt"
+        If ($results){
+            $results | Select-Object GPO,Trustee,Permission | Export-CSV -Path "$path\GPOsWithExcessivePermissions.csv" -NoTypeInformation
 
             Return $results.GPO | Select-Object -Unique
+        }
+
+        Return $null
+        
         }
         Catch {
         Write-Warning "Error message: $_"

@@ -24,9 +24,9 @@ Function Inspect-LockoutPolicy{
     Try {
         $domain = Get-ADRootDSE 
         $AccountPolicy = Get-ADObject $domain.defaultNamingContext -Property lockoutDuration, lockoutObservationWindow, lockoutThreshold
-        $Info = $AccountPolicy | Select-Object @{n="lockoutDuration";e={"$($_.lockoutDuration / -600000000) minutes"}},@{n="lockoutObservationWindow";e={"$($_.lockoutObservationWindow / -600000000) minutes"}},lockoutThreshold | Format-List
+        $Info = $AccountPolicy | Select-Object lockoutDuration,lockoutObservationWindow,lockoutThreshold
 
-        $Info | Out-File "$($path)\LockoutPolicy.txt"
+        return "Lockout Duration: $($Info.lockoutDuration / -600000000) minutes; Lockout Observation Window: $($Info.lockoutDuration / -600000000) minutes; Lockout Threshold: $($Info.lockoutThreshold)"
     }
     Catch {
     Write-Warning "Error message: $_"

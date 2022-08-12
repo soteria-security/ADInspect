@@ -16,12 +16,21 @@ Function Inspect-AllSPNs{
         $results = $query.FindAll()
 
         Foreach ($result in $results){
-            $entity = $result.GetDirectoryEntry()
-            $SPNs += $entity.Name, $entity.ServicePrinicpalName
+
+            [Array]$Properties = $result.properties.PropertyNames
+
+            $obj = New-Object PSObject
+
+            foreach ($property in $properties){
+                $obj | Add-Member -MemberType NoteProperty -Name $property -Value ([string]$result.Properties.Item($property))
+            }
+
+            $SPNs += $obj
         }
 
-        if ($SPNs.count -ne 0){
-            Return $SPNs
+         if ($SPNs.count -ne 0){
+            $SPNs | Export-csv "SPNs.csv" -NoTypeInformation
+            Return $SPNs.Name
         }
     }
     Catch {
