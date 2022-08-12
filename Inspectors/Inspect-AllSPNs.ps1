@@ -29,7 +29,7 @@ Function Inspect-AllSPNs{
         }
 
          if ($SPNs.count -ne 0){
-            $SPNs | Export-csv "SPNs.csv" -NoTypeInformation
+            $SPNs | Export-csv "$path\SPNs.csv" -NoTypeInformation
             Return $SPNs.Name
         }
     }
