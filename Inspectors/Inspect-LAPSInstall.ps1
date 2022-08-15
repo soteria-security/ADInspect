@@ -5,12 +5,31 @@ $errorHandling = "$((Get-Item $PSScriptRoot).Parent.FullName)\Write-ErrorLog.ps1
 . $errorHandling
 
 
-Function Find-HiddenDomainControllers{
-    try {
-        #Get a list of all domain controllers
-        $HiddenDCs = Get-ADComputer -Filter * -Properties UserAccountControl | Where-Object {$_.UserAccountControl -eq 8192}
+<#
+.SYNOPSIS
+    Gather information about Active Directory Domain
+.DESCRIPTION
+    This script checks Active Directory Domain and offers remediation steps
+.COMPONENT
+    PowerShell, Active Directory PowerShell Module, and sufficient rights to change admin accounts
+.ROLE
+    Domain Admin or Delegated rights
+.FUNCTIONALITY
+    Gather information about Active Directory Domain
+#>
 
-        Return $HiddenDCs.Name
+
+Function Inspect-LAPSInstall{
+    Try {
+        $schemaName = (Get-ADRootDSE | Select-Object schema*).schemaNamingContext
+
+        $lapsChk = Get-ADObject "CN=ms-mcs-admpwd,$schemaName"
+
+        If(!$lapsChk){
+            return "LAPS not installed on the domain"
+        }
+
+        return $null
     }
     Catch {
     Write-Warning "Error message: $_"
@@ -28,4 +47,4 @@ Function Find-HiddenDomainControllers{
     }
 }
 
-Return Find-HiddenDomainControllers
+Return Inspect-LAPSInstall

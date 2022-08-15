@@ -1,3 +1,10 @@
+$ErrorActionPreference = "Stop"
+
+$errorHandling = "$((Get-Item $PSScriptRoot).Parent.FullName)\Write-ErrorLog.ps1"
+
+. $errorHandling
+
+
 <#
 .SYNOPSIS
     Gather information about Active Directory Admin accounts raise resolve any issues. Conforms to Best Practice and PingCastle reports.
@@ -12,11 +19,27 @@
 #>
 
 Function Get-Admins{
-    $admins = @($allUsers) | Where-Object {$_.adminCount -gt 0}
+    Try {
+        $admins = Get-ADUser -Filter {adminCount -gt 0} -Properties adminCount
 
-    If ($admins.count -gt 0){
-        Return $admins.samaccountname
-    } 
+        If ($admins.count -gt 0){
+            Return $admins.samaccountname
+        }
+    }
+    Catch {
+    Write-Warning "Error message: $_"
+    $message = $_.ToString()
+    $exception = $_.Exception
+    $strace = $_.ScriptStackTrace
+    $failingline = $_.InvocationInfo.Line
+    $positionmsg = $_.InvocationInfo.PositionMessage
+    $pscmdpath = $_.InvocationInfo.PSCommandPath
+    $failinglinenumber = $_.InvocationInfo.ScriptLineNumber
+    $scriptname = $_.InvocationInfo.ScriptName
+    Write-Verbose "Write to log"
+    Write-ErrorLog -message $message -exception $exception -scriptname $scriptname -failinglinenumber $failinglinenumber -failingline $failingline -pscmdpath $pscmdpath -positionmsg $positionmsg -stacktrace $strace
+    Write-Verbose "Errors written to log"
+    }
 
 }
 

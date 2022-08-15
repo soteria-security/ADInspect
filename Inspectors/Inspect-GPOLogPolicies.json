@@ -1,6 +1,6 @@
 {
 	"FindingName": "No Group Policy Objects Defining Log Size and Retention",
-	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to define log file size and retention. ",
+	"Description": "Group Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to define log file size and retention. ",
 	"Remediation": "Create a Group Policy Object to enforce the configuration of logging on servers and endpoints. At a minimum logging should be enabled and enforced on mission critical systems.",
 	"AffectedObjects": "",
 	"Risk": "Critical",

@@ -1,6 +1,6 @@
 {
 	"FindingName": "No Group Policy Objects to Mitigate SMBv1 Found",
-	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to disable unsafe protocols like SMBv1. While disabling or removing SMBv1 might cause some compatibility issues with old computers or software, SMBv1 has significant security vulnerabilities and should not be used.",
+	"Description": "Group Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to disable unsafe protocols like SMBv1. While disabling or removing SMBv1 might cause some compatibility issues with old computers or software, SMBv1 has significant security vulnerabilities and should not be used.",
 	"Remediation": "Create a Group Policy Object to disable SMBv1 protocols.",
 	"AffectedObjects": "",
 	"Risk": "Critical",

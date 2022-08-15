@@ -1,3 +1,10 @@
+$ErrorActionPreference = "Stop"
+
+$errorHandling = "$((Get-Item $PSScriptRoot).Parent.FullName)\Write-ErrorLog.ps1"
+
+. $errorHandling
+
+
 <#
 .SYNOPSIS
     Gather information about Active Directory High-value target accounts
@@ -12,23 +19,39 @@
 #>
 
 
-$path = @($out_path)
+$path = @($outpath)
 Function Inspect-PasswordNeverChanged{
-    #$Users = Get-ADUser -Filter * -Properties WhenCreated, PasswordLastSet 
+    Try {
+        $Users = Get-ADUser -Filter * -Properties WhenCreated, PasswordLastSet 
 
-    $pwdNeverchanged = @()
+        $pwdNeverchanged = @()
 
-    foreach ($user in @($allUsers)){
-        $created = $user.WhenCreated
-        $pwllastset = $user.PasswordLastSet
-        If ($created -eq $pwllastset) {
-            $pwdNeverchanged += $user
+        foreach ($user in $users){
+            $created = $user.WhenCreated
+            $pwllastset = $user.PasswordLastSet
+            If ($created -eq $pwllastset) {
+                $pwdNeverchanged += $user
+            }
+        }
+        
+        if ($pwdNeverchanged.count -ne 0){
+            $pwdNeverchanged | Export-Csv "$path\PWDNeverChanged.csv" -NoTypeInformation
+            Return $pwdNeverchanged.count
         }
     }
-    
-    if ($pwdNeverchanged.count -ne 0){
-        $pwdNeverchanged | Export-Csv "$path\PWDNeverChanged.csv" -NoTypeInformation
-        Return $pwdNeverchanged.SamAccountName
+    Catch {
+    Write-Warning "Error message: $_"
+    $message = $_.ToString()
+    $exception = $_.Exception
+    $strace = $_.ScriptStackTrace
+    $failingline = $_.InvocationInfo.Line
+    $positionmsg = $_.InvocationInfo.PositionMessage
+    $pscmdpath = $_.InvocationInfo.PSCommandPath
+    $failinglinenumber = $_.InvocationInfo.ScriptLineNumber
+    $scriptname = $_.InvocationInfo.ScriptName
+    Write-Verbose "Write to log"
+    Write-ErrorLog -message $message -exception $exception -scriptname $scriptname -failinglinenumber $failinglinenumber -failingline $failingline -pscmdpath $pscmdpath -positionmsg $positionmsg -stacktrace $strace
+    Write-Verbose "Errors written to log"
     }
 }
 

@@ -1,6 +1,6 @@
 {
 	"FindingName": "No Group Policy Objects Enforcing UAC Prompt for Elevation Found",
-	"Description": "Groups Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to enforce security measures, like the User Account Control (UAC) prompt to grant elevated permissions. Enforcing the use of the UAC prompt hinders an attackers ability to silently or programmatically elevate a standard users privileges to administrative permissions.",
+	"Description": "Group Policy Objects are used to centralize enforcement of configurations and policies for domain user and computer assets. GPO's can be leveraged to enforce security measures, like the User Account Control (UAC) prompt to grant elevated permissions. Enforcing the use of the UAC prompt hinders an attackers ability to silently or programmatically elevate a standard users privileges to administrative permissions.",
 	"Remediation": "Create a Group Policy Object to enforce UAC prompts for all users. ",
 	"AffectedObjects": "",
 	"Risk": "Critical",

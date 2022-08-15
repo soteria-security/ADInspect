@@ -1,3 +1,10 @@
+$ErrorActionPreference = "Stop"
+
+$errorHandling = "$((Get-Item $PSScriptRoot).Parent.FullName)\Write-ErrorLog.ps1"
+
+. $errorHandling
+
+
 <#
 .SYNOPSIS
     Gather information about Active Directory accounts vulnerable to Kerberoasting
@@ -11,19 +18,27 @@
     Gather information about Active Directory accounts vulnerable to Kerberoasting
 #>
 
-$path = @($out_path)
-
 Function Get-Kerberoastable{
-    #$SPN = get-aduser -filter * -pr ServicePrincipalNames | Where-Object {($_.ServicePrincipalNames -like "*") -and ($_.samaccountname -notlike "krbtgt")}
-    $SPN = @() 
-    
-    foreach ($user in @($allUsers)) {
-        $SPN += ($user | Where-Object {($_.ServicePrincipalNames -notlike "") -and ($_.Name -notlike "krbtgt")})
+    Try {
+        $SPN = get-aduser -filter * -pr ServicePrincipalNames | Where-Object {($_.ServicePrincipalNames -like "*") -and ($_.samaccountname -notlike "krbtgt")} | Select-Object samaccountname
+        
+        if ($SPN.count -ne 0){
+            Return $SPN.samaccountname
+        }
     }
-    
-    if ($SPN.count -ne 0){
-        $SPN | Export-Csv "$path\KerberoastableAccounts.csv" -NoTypeInformation
-        Return $SPN.samaccountname
+    Catch {
+    Write-Warning "Error message: $_"
+    $message = $_.ToString()
+    $exception = $_.Exception
+    $strace = $_.ScriptStackTrace
+    $failingline = $_.InvocationInfo.Line
+    $positionmsg = $_.InvocationInfo.PositionMessage
+    $pscmdpath = $_.InvocationInfo.PSCommandPath
+    $failinglinenumber = $_.InvocationInfo.ScriptLineNumber
+    $scriptname = $_.InvocationInfo.ScriptName
+    Write-Verbose "Write to log"
+    Write-ErrorLog -message $message -exception $exception -scriptname $scriptname -failinglinenumber $failinglinenumber -failingline $failingline -pscmdpath $pscmdpath -positionmsg $positionmsg -stacktrace $strace
+    Write-Verbose "Errors written to log"
     }
 }
 
